@@ -28,6 +28,7 @@ public class POSController implements Serializable {
 
     public String login() {
         javax.faces.context.FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("posUser", tenantNif);
+        javax.faces.context.FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("tenantId", tenantNif);
         return "/pos.xhtml?faces-redirect=true";
     }
 
@@ -54,7 +55,7 @@ public class POSController implements Serializable {
         linhaActual = new LinhaFactura();
     }
 
-    public void bloquearEcrã() {
+    public void bloquearEcra() {
         bloqueado = !bloqueado;
     }
 

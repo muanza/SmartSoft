@@ -1,7 +1,6 @@
 package com.faturacao.pos.controller;
 
 import com.faturacao.pos.model.Factura;
-import com.faturacao.pos.model.SerieFactura;
 import com.faturacao.pos.service.FacturaService;
 import com.faturacao.pos.service.SyncService;
 
@@ -25,17 +24,21 @@ public class VendaController implements Serializable {
     @Inject
     private SyncService syncService;
 
+    @Inject
+    private ConfigController configController;
+
     private String clienteNome = "Consumidor Final";
     private String idioma = "pt";
     private Factura ultimaFactura;
 
     public void finalizarVenda() {
-        SerieFactura serie = new SerieFactura();
-        serie.setTenantNif(posController.getTenantNif());
-        ultimaFactura = facturaService.emitir(posController.getTenantNif(), idioma, clienteNome, posController.getCarrinho(), serie);
-        syncService.sincronizarFactura(ultimaFactura, "http://localhost:8080/faturacao-crm/api/licencas", "APIKEY-500000001");
+        ultimaFactura = facturaService.emitir(posController.getTenantNif(), idioma, clienteNome, posController.getCarrinho());
+        boolean sincronizada = syncService.sincronizarFactura(ultimaFactura, configController.getCrmApiUrl(), configController.getApiKey());
         posController.getCarrinho().clear();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Factura emitida: " + ultimaFactura.getNumero()));
+        if (!sincronizada) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Sincronização pendente.", null));
+        }
     }
 
     public String getClienteNome() { return clienteNome; }

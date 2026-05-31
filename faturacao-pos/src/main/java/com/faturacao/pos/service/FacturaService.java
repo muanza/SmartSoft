@@ -7,6 +7,9 @@ import com.faturacao.pos.model.SerieFactura;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
@@ -23,7 +26,12 @@ public class FacturaService {
     @Inject
     private QRCodeService qrCodeService;
 
-    public Factura emitir(String tenantNif, String idioma, String clienteNome, List<LinhaFactura> linhas, SerieFactura serie) {
+    @PersistenceContext(unitName = "posPU")
+    private EntityManager entityManager;
+
+    @Transactional
+    public Factura emitir(String tenantNif, String idioma, String clienteNome, List<LinhaFactura> linhas) {
+        SerieFactura serie = obterSerieActiva(tenantNif);
         BigDecimal subtotal = BigDecimal.ZERO;
         BigDecimal imposto = BigDecimal.ZERO;
         for (LinhaFactura linha : linhas) {
@@ -43,6 +51,24 @@ public class FacturaService {
         factura.setHashFiscal(hashService.gerarHash(factura.getNumero() + "|" + factura.getTotal()));
         factura.setQrCodeTexto(qrCodeService.gerarConteudo(factura));
         serie.setProximoNumero(serie.getProximoNumero() + 1);
+        entityManager.merge(serie);
         return facturaDAO.guardar(factura);
+    }
+
+    private SerieFactura obterSerieActiva(String tenantNif) {
+        List<SerieFactura> series = entityManager.createQuery(
+                        "select s from SerieFactura s where s.tenantNif = :tenant and s.activo = true order by s.codigo",
+                        SerieFactura.class)
+                .setParameter("tenant", tenantNif)
+                .setMaxResults(1)
+                .getResultList();
+        if (!series.isEmpty()) {
+            return series.get(0);
+        }
+        SerieFactura serie = new SerieFactura();
+        serie.setTenantNif(tenantNif);
+        serie.setCodigo("FT");
+        serie.setTipoDocumento("FACTURA");
+        return entityManager.merge(serie);
     }
 }

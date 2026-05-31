@@ -9,10 +9,10 @@
 
 ## 2. Criar as bases centrais e template
 
-1. Executar `/tmp/workspace/muanza/SmartSoft/database/01_create_database.sql`.
-2. Ligar à base `crm_faturacao` e executar `/tmp/workspace/muanza/SmartSoft/database/02_crm_schema.sql`.
-3. Ligar à base `template_tenant_faturacao` e executar `/tmp/workspace/muanza/SmartSoft/database/03_tenant_template.sql`.
-4. Executar `/tmp/workspace/muanza/SmartSoft/database/04_seed_data.sql` em `crm_faturacao`.
+1. Executar `${PROJECT_ROOT}/database/01_create_database.sql`.
+2. Ligar à base `crm_faturacao` e executar `${PROJECT_ROOT}/database/02_crm_schema.sql`.
+3. Ligar à base `template_tenant_faturacao` e executar `${PROJECT_ROOT}/database/03_tenant_template.sql`.
+4. Executar `${PROJECT_ROOT}/database/04_seed_data.sql` em `crm_faturacao`.
 
 ## 3. Provisionar um tenant novo
 
@@ -39,15 +39,15 @@ Configurar o driver PostgreSQL no WildFly e usar o utilizador com permissões de
 ## 5. Compilar os módulos
 
 ```bash
-cd /tmp/workspace/muanza/SmartSoft
+cd ${PROJECT_ROOT}
 mvn test
 mvn -DskipTests package
 ```
 
 Os ficheiros gerados serão:
 
-- `/tmp/workspace/muanza/SmartSoft/faturacao-crm/target/faturacao-crm.war`
-- `/tmp/workspace/muanza/SmartSoft/faturacao-pos/target/faturacao-pos.war`
+- `${PROJECT_ROOT}/faturacao-crm/target/faturacao-crm.war`
+- `${PROJECT_ROOT}/faturacao-pos/target/faturacao-pos.war`
 
 ## 6. Deploy no WildFly
 

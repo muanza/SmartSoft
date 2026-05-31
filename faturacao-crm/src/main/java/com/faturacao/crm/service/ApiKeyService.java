@@ -4,6 +4,7 @@ import com.faturacao.crm.model.ApiKey;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.security.SecureRandom;
@@ -28,11 +29,13 @@ public class ApiKeyService {
         return entityManager.merge(apiKey);
     }
 
+    @Transactional
     public boolean validar(String tenantNif, String chaveValor) {
         List<ApiKey> resultado = entityManager.createQuery(
                         "select a from ApiKey a where a.tenantNif = :tenant and a.chaveValor = :chave and a.activa = true", ApiKey.class)
                 .setParameter("tenant", tenantNif)
                 .setParameter("chave", chaveValor)
+                .setLockMode(LockModeType.PESSIMISTIC_WRITE)
                 .setMaxResults(1)
                 .getResultList();
         if (!resultado.isEmpty()) {
