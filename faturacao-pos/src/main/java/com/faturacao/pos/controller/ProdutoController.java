@@ -20,6 +20,9 @@ public class ProdutoController implements Serializable {
     @Inject
     private ProdutoDAO produtoDAO;
 
+    @Inject
+    private POSController posController;
+
     private List<Produto> produtos;
     private Produto produtoForm;
 
@@ -27,14 +30,14 @@ public class ProdutoController implements Serializable {
     public void init() {
         produtos = new ArrayList<>(produtoDAO.listarTodos());
         produtoForm = new Produto();
-        produtoForm.setTenantNif("500000001");
+        produtoForm.setTenantNif(posController.getTenantNif());
     }
 
     public void salvar() {
         produtoDAO.guardar(produtoForm);
         produtos = new ArrayList<>(produtoDAO.listarTodos());
         produtoForm = new Produto();
-        produtoForm.setTenantNif("500000001");
+        produtoForm.setTenantNif(posController.getTenantNif());
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Produto guardado."));
     }
 

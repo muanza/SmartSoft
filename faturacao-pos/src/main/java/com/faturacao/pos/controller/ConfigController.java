@@ -16,7 +16,7 @@ public class ConfigController implements Serializable {
 
     private String crmApiUrl = "http://localhost:8080/faturacao-crm/api/licencas";
     private String apiKey = "APIKEY-500000001";
-    private String tenantNif = "500000001";
+    private String tenantNif;
     private String pastaBackup = "/var/backups/smartsoft";
 
     public String getUltimoPlanoBackup() {

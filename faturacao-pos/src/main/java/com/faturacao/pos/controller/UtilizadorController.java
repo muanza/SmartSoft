@@ -4,6 +4,7 @@ import com.faturacao.pos.model.Utilizador;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,6 +14,9 @@ import java.util.List;
 @ViewScoped
 public class UtilizadorController implements Serializable {
 
+    @Inject
+    private POSController posController;
+
     private List<Utilizador> utilizadores;
     private Utilizador utilizadorForm;
 
@@ -20,13 +24,13 @@ public class UtilizadorController implements Serializable {
     public void init() {
         utilizadores = new ArrayList<>();
         utilizadorForm = new Utilizador();
-        utilizadorForm.setTenantNif("500000001");
+        utilizadorForm.setTenantNif(posController.getTenantNif());
     }
 
     public void salvar() {
         utilizadores.add(utilizadorForm);
         utilizadorForm = new Utilizador();
-        utilizadorForm.setTenantNif("500000001");
+        utilizadorForm.setTenantNif(posController.getTenantNif());
     }
 
     public List<Utilizador> getUtilizadores() { return utilizadores; }

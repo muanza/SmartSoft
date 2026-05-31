@@ -20,6 +20,9 @@ public class ClienteController implements Serializable {
     @Inject
     private ClienteDAO clienteDAO;
 
+    @Inject
+    private POSController posController;
+
     private List<Cliente> clientes;
     private Cliente clienteForm;
 
@@ -27,14 +30,14 @@ public class ClienteController implements Serializable {
     public void init() {
         clientes = new ArrayList<>(clienteDAO.listarTodos());
         clienteForm = new Cliente();
-        clienteForm.setTenantNif("500000001");
+        clienteForm.setTenantNif(posController.getTenantNif());
     }
 
     public void salvar() {
         clienteDAO.guardar(clienteForm);
         clientes = new ArrayList<>(clienteDAO.listarTodos());
         clienteForm = new Cliente();
-        clienteForm.setTenantNif("500000001");
+        clienteForm.setTenantNif(posController.getTenantNif());
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Cliente guardado."));
     }
 

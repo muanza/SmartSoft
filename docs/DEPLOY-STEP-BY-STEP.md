@@ -1,5 +1,7 @@
 # Deploy e execução passo a passo
 
+> `PROJECT_ROOT` representa a pasta raiz do repositório clonado.
+
 ## 1. Pré-requisitos
 
 1. Instalar Java 11.

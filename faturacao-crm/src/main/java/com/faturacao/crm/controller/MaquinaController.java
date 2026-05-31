@@ -8,7 +8,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,13 +25,6 @@ public class MaquinaController implements Serializable {
     public void init() {
         maquinas = new ArrayList<>();
         maquinaForm = new MaquinaLicenciada();
-        MaquinaLicenciada exemplo = new MaquinaLicenciada();
-        exemplo.setTenantNif("500000001");
-        exemplo.setSerialHardware("HW-DEMO-001");
-        exemplo.setNomeMaquina("POS-DEMO");
-        exemplo.setIpLocal("192.168.0.10");
-        exemplo.setUltimaSincronizacao(LocalDateTime.now());
-        maquinas.add(exemplo);
     }
 
     public void registar() {

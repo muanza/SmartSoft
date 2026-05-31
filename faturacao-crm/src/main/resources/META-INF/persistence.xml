@@ -6,7 +6,7 @@
     <persistence-unit name="crmPU" transaction-type="JTA">
         <jta-data-source>java:/jdbc/FaturacaoCRMDS</jta-data-source>
         <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL10Dialect"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="validate"/>
             <property name="hibernate.show_sql" value="false"/>
         </properties>

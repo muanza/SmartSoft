@@ -20,7 +20,7 @@ public class POSController implements Serializable {
     private boolean caixaAberta;
     private boolean bloqueado;
     private boolean fullScreen;
-    private String tenantNif = "500000001";
+    private String tenantNif;
     private SessaoCaixa sessaoActual = new SessaoCaixa();
     private LinhaFactura linhaActual = new LinhaFactura();
     private List<LinhaFactura> carrinho = new ArrayList<>();

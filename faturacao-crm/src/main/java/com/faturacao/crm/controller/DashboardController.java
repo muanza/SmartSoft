@@ -38,6 +38,9 @@ public class DashboardController {
     }
 
     public String getEstadoBackups() {
-        return backupService.gerarPlanoBackup("500000001");
+        return tenantDAO.listarTodos().stream()
+                .findFirst()
+                .map(tenant -> backupService.gerarPlanoBackup(tenant.getNif()))
+                .orElse("Sem tenants configurados para backup.");
     }
 }
