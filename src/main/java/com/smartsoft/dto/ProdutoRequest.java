@@ -34,7 +34,7 @@ public class ProdutoRequest implements Serializable {
     @Size(max = 100)
     private String codigoBarras;
 
-    @NotBlank
+    @Size(max = 36)
     private String categoriaId;
 
     public ProdutoRequest() {}
