@@ -25,6 +25,12 @@ public class POSController implements Serializable {
     private LinhaFactura linhaActual = new LinhaFactura();
     private List<LinhaFactura> carrinho = new ArrayList<>();
 
+
+    public String login() {
+        javax.faces.context.FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("posUser", tenantNif);
+        return "/pos.xhtml?faces-redirect=true";
+    }
+
     public void abrirCaixa() {
         sessaoActual = new SessaoCaixa();
         sessaoActual.setTenantNif(tenantNif);

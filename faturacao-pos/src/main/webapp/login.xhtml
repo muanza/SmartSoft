@@ -11,7 +11,7 @@
     <h:form>
         <h:outputLabel for="tenant" value="Tenant/NIF"/>
         <h:inputText id="tenant" value="#{posController.tenantNif}"/>
-        <h:commandButton value="Entrar" action="#{{request.contextPath}}/pos.xhtml?faces-redirect=true" onclick="document.forms[0].action='pos.xhtml';" />
+        <h:commandButton value="Entrar" action="#{posController.login}" />
     </h:form>
 </section>
 </h:body>

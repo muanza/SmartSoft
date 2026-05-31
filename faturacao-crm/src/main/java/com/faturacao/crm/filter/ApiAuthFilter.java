@@ -24,7 +24,7 @@ public class ApiAuthFilter implements Filter {
         if ((apiKey == null || apiKey.isBlank()) && req.getParameter("apiKey") == null) {
             resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             resp.setContentType("application/json");
-            resp.getWriter().write("{"mensagem":"Informe X-API-Key."}");
+            resp.getWriter().write("{\"mensagem\":\"Informe X-API-Key.\"}");
             return;
         }
         chain.doFilter(request, response);
