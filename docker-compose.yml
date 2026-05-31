@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: smartsoft
+      POSTGRES_USER: smartsoft
+      POSTGRES_PASSWORD: smartsoft
+    ports:
+      - "5432:5432"
+  app:
+    build: .
+    environment:
+      SMARTSOFT_DB_URL: jdbc:postgresql://db:5432/smartsoft
+      SMARTSOFT_DB_USERNAME: smartsoft
+      SMARTSOFT_DB_PASSWORD: smartsoft
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
