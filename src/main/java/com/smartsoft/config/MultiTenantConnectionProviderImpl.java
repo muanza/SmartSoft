@@ -2,6 +2,7 @@ package com.smartsoft.config;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
@@ -9,6 +10,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 @Component
+@ConditionalOnBean(DataSource.class)
 public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionProvider {
 
     private final DataSource dataSource;
@@ -40,7 +42,7 @@ public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionP
 
     @Override
     public void releaseConnection(String tenantIdentifier, Connection connection) throws SQLException {
-        connection.setSchema("public");
+        connection.setSchema(TenantIdentifierResolver.DEFAULT_TENANT);
         releaseAnyConnection(connection);
     }
 

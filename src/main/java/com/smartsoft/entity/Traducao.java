@@ -26,7 +26,7 @@ public class Traducao extends BaseEntity {
     private String chaveTraducao;
 
     @NotNull
-    @Pattern(regexp = "pt|en|fr|zh")
+    @Pattern(regexp = "^(pt|en|fr|zh)$")
     @Column(name = "idioma", nullable = false)
     private String idioma;
 
