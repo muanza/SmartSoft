@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>POS</title>
+    <h:outputStylesheet library="css" name="pos.css"/>
+    <h:outputScript library="js" name="pos.js"/>
+</h:head>
+<h:body styleClass="#{posController.bloqueado ? 'locked' : ''}">
+<header><h1>POS e Faturação</h1></header>
+<nav>
+    <h:link outcome="pos" value="POS" />
+    <h:link outcome="vendas" value="Vendas" />
+    <h:link outcome="produtos" value="Produtos" />
+    <h:link outcome="stock" value="Stock" />
+    <h:link outcome="clientes" value="Clientes" />
+    <h:link outcome="utilizadores" value="Utilizadores" />
+    <h:link outcome="facturas" value="Facturas" />
+    <h:link outcome="configuracao" value="Configuração" />
+</nav>
+
+<section class="panel">
+    <h2>Produtos em ruptura</h2>
+    <h:dataTable value="#{stockController.produtosEmRuptura}" var="produto">
+        <h:column><f:facet name="header">Produto</f:facet>#{produto.nome}</h:column>
+        <h:column><f:facet name="header">Stock</f:facet>#{produto.stockAtual}</h:column>
+    </h:dataTable>
+</section>
+
+</h:body>
+</html>

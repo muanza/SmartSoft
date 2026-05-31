@@ -1,11 +1,13 @@
 FROM maven:3.9.9-eclipse-temurin-11 AS build
-WORKDIR /app
+WORKDIR /workspace
 COPY pom.xml .
-COPY src ./src
+COPY faturacao-crm/pom.xml faturacao-crm/pom.xml
+COPY faturacao-pos/pom.xml faturacao-pos/pom.xml
+COPY faturacao-crm/src faturacao-crm/src
+COPY faturacao-pos/src faturacao-pos/src
 RUN mvn -q -DskipTests package
 
-FROM eclipse-temurin:11-jre
-WORKDIR /app
-COPY --from=build /app/target/smartsoft-1.0.0-SNAPSHOT.jar app.jar
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+FROM quay.io/wildfly/wildfly:26.1.3.Final-jdk11
+COPY --from=build /workspace/faturacao-crm/target/faturacao-crm.war /opt/jboss/wildfly/standalone/deployments/faturacao-crm.war
+COPY --from=build /workspace/faturacao-pos/target/faturacao-pos.war /opt/jboss/wildfly/standalone/deployments/faturacao-pos.war
+EXPOSE 8080 9990

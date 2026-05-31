@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+    <title>CRM</title>
+    <h:outputStylesheet library="css" name="style.css"/>
+</h:head>
+<h:body>
+<header><h1>CRM de Licenciamento</h1></header>
+<nav>
+    <h:link outcome="dashboard" value="Dashboard" />
+    <h:link outcome="tenants" value="Tenants" />
+    <h:link outcome="licencas" value="Licenças" />
+    <h:link outcome="parceiros" value="Parceiros" />
+    <h:link outcome="banners" value="Banners" />
+    <h:link outcome="comunicados" value="Comunicados" />
+    <h:link outcome="maquinas" value="Máquinas" />
+</nav>
+
+<section class="card">
+    <h2>Comunicados</h2>
+    <p class="notice">#{comunicadoController.ultimoEnvio}</p>
+    <h:dataTable value="#{comunicadoController.comunicados}" var="comunicado">
+        <h:column><f:facet name="header">Assunto</f:facet>#{comunicado.assunto}</h:column>
+        <h:column><f:facet name="header">Idioma</f:facet>#{comunicado.idioma}</h:column>
+    </h:dataTable>
+</section>
+<section class="card">
+    <h:form>
+        <h:inputText value="#{comunicadoController.comunicadoForm.assunto}" required="true"/>
+        <h:inputTextarea value="#{comunicadoController.comunicadoForm.mensagem}" required="true"/>
+        <h:inputText value="#{comunicadoController.comunicadoForm.idioma}"/>
+        <h:commandButton value="Enviar comunicado" action="#{comunicadoController.enviar}"/>
+    </h:form>
+</section>
+
+</h:body>
+</html>

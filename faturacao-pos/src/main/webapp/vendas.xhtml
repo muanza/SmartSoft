@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>POS</title>
+    <h:outputStylesheet library="css" name="pos.css"/>
+    <h:outputScript library="js" name="pos.js"/>
+</h:head>
+<h:body styleClass="#{posController.bloqueado ? 'locked' : ''}">
+<header><h1>POS e Faturação</h1></header>
+<nav>
+    <h:link outcome="pos" value="POS" />
+    <h:link outcome="vendas" value="Vendas" />
+    <h:link outcome="produtos" value="Produtos" />
+    <h:link outcome="stock" value="Stock" />
+    <h:link outcome="clientes" value="Clientes" />
+    <h:link outcome="utilizadores" value="Utilizadores" />
+    <h:link outcome="facturas" value="Facturas" />
+    <h:link outcome="configuracao" value="Configuração" />
+</nav>
+
+<section class="panel">
+    <h2>Finalizar venda</h2>
+    <h:form>
+        <h:inputText value="#{vendaController.clienteNome}"/>
+        <h:selectOneMenu value="#{vendaController.idioma}">
+            <f:selectItem itemValue="pt" itemLabel="Português"/>
+            <f:selectItem itemValue="en" itemLabel="English"/>
+            <f:selectItem itemValue="fr" itemLabel="Français"/>
+            <f:selectItem itemValue="zh" itemLabel="中文"/>
+        </h:selectOneMenu>
+        <h:commandButton value="Emitir factura" action="#{vendaController.finalizarVenda}"/>
+    </h:form>
+    <p>Última factura: #{vendaController.ultimaFactura.numero}</p>
+    <p>Total: #{vendaController.ultimaFactura.total}</p>
+    <p>QR: #{vendaController.ultimaFactura.qrCodeTexto}</p>
+</section>
+
+</h:body>
+</html>

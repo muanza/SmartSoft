@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+    <title>CRM</title>
+    <h:outputStylesheet library="css" name="style.css"/>
+</h:head>
+<h:body>
+<header><h1>CRM de Licenciamento</h1></header>
+<nav>
+    <h:link outcome="dashboard" value="Dashboard" />
+    <h:link outcome="tenants" value="Tenants" />
+    <h:link outcome="licencas" value="Licenças" />
+    <h:link outcome="parceiros" value="Parceiros" />
+    <h:link outcome="banners" value="Banners" />
+    <h:link outcome="comunicados" value="Comunicados" />
+    <h:link outcome="maquinas" value="Máquinas" />
+</nav>
+
+<section class="card">
+    <h2>Máquinas licenciadas</h2>
+    <h:dataTable value="#{maquinaController.maquinas}" var="maquina">
+        <h:column><f:facet name="header">Tenant</f:facet>#{maquina.tenantNif}</h:column>
+        <h:column><f:facet name="header">Máquina</f:facet>#{maquina.nomeMaquina}</h:column>
+        <h:column><f:facet name="header">Serial</f:facet>#{maquina.serialHardware}</h:column>
+    </h:dataTable>
+</section>
+<section class="card">
+    <h:form>
+        <h:inputText value="#{maquinaController.maquinaForm.tenantNif}" required="true"/>
+        <h:inputText value="#{maquinaController.maquinaForm.nomeMaquina}" required="true"/>
+        <h:inputText value="#{maquinaController.maquinaForm.serialHardware}" required="true"/>
+        <h:inputText value="#{maquinaController.maquinaForm.ipLocal}"/>
+        <h:commandButton value="Registar máquina" action="#{maquinaController.registar}"/>
+    </h:form>
+</section>
+
+</h:body>
+</html>

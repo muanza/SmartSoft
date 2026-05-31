@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>POS</title>
+    <h:outputStylesheet library="css" name="pos.css"/>
+    <h:outputScript library="js" name="pos.js"/>
+</h:head>
+<h:body styleClass="#{posController.bloqueado ? 'locked' : ''}">
+<header><h1>POS e Faturação</h1></header>
+<nav>
+    <h:link outcome="pos" value="POS" />
+    <h:link outcome="vendas" value="Vendas" />
+    <h:link outcome="produtos" value="Produtos" />
+    <h:link outcome="stock" value="Stock" />
+    <h:link outcome="clientes" value="Clientes" />
+    <h:link outcome="utilizadores" value="Utilizadores" />
+    <h:link outcome="facturas" value="Facturas" />
+    <h:link outcome="configuracao" value="Configuração" />
+</nav>
+
+<section class="panel">
+    <h2>Utilizadores</h2>
+    <h:dataTable value="#{utilizadorController.utilizadores}" var="utilizador">
+        <h:column><f:facet name="header">Nome</f:facet>#{utilizador.nome}</h:column>
+        <h:column><f:facet name="header">Username</f:facet>#{utilizador.username}</h:column>
+        <h:column><f:facet name="header">Perfil</f:facet>#{utilizador.perfil}</h:column>
+    </h:dataTable>
+</section>
+<section class="panel">
+    <h:form>
+        <h:inputText value="#{utilizadorController.utilizadorForm.nome}" required="true"/>
+        <h:inputText value="#{utilizadorController.utilizadorForm.username}" required="true"/>
+        <h:inputSecret value="#{utilizadorController.utilizadorForm.passwordHash}" required="true"/>
+        <h:selectOneMenu value="#{utilizadorController.utilizadorForm.perfil}">
+            <f:selectItem itemValue="ADMINISTRADOR" itemLabel="Administrador"/>
+            <f:selectItem itemValue="OPERADOR" itemLabel="Operador"/>
+        </h:selectOneMenu>
+        <h:commandButton value="Guardar utilizador" action="#{utilizadorController.salvar}"/>
+    </h:form>
+</section>
+
+</h:body>
+</html>

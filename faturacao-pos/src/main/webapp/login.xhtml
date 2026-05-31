@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+    <title>Login POS</title>
+    <h:outputStylesheet library="css" name="pos.css"/>
+</h:head>
+<h:body>
+<header><h1>Faturação POS</h1></header>
+<section class="panel">
+    <h:form>
+        <h:outputLabel for="tenant" value="Tenant/NIF"/>
+        <h:inputText id="tenant" value="#{posController.tenantNif}"/>
+        <h:commandButton value="Entrar" action="#{{request.contextPath}}/pos.xhtml?faces-redirect=true" onclick="document.forms[0].action='pos.xhtml';" />
+    </h:form>
+</section>
+</h:body>
+</html>

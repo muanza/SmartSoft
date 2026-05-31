@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+    <title>CRM</title>
+    <h:outputStylesheet library="css" name="style.css"/>
+</h:head>
+<h:body>
+<header><h1>CRM de Licenciamento</h1></header>
+<nav>
+    <h:link outcome="dashboard" value="Dashboard" />
+    <h:link outcome="tenants" value="Tenants" />
+    <h:link outcome="licencas" value="Licenças" />
+    <h:link outcome="parceiros" value="Parceiros" />
+    <h:link outcome="banners" value="Banners" />
+    <h:link outcome="comunicados" value="Comunicados" />
+    <h:link outcome="maquinas" value="Máquinas" />
+</nav>
+
+<section class="card">
+    <h2>Banners</h2>
+    <h:dataTable value="#{bannerController.banners}" var="banner">
+        <h:column><f:facet name="header">Título</f:facet>#{banner.titulo}</h:column>
+        <h:column><f:facet name="header">Público</f:facet>#{banner.publicoAlvo}</h:column>
+    </h:dataTable>
+</section>
+<section class="card">
+    <h:form>
+        <h:inputText value="#{bannerController.bannerForm.titulo}" required="true"/>
+        <h:inputTextarea value="#{bannerController.bannerForm.conteudo}" required="true"/>
+        <h:inputText value="#{bannerController.bannerForm.urlDestino}"/>
+        <h:commandButton value="Guardar banner" action="#{bannerController.salvar}"/>
+    </h:form>
+</section>
+
+</h:body>
+</html>

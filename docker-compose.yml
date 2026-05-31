@@ -1,20 +1,24 @@
 version: '3.8'
 services:
-  db:
+  postgres:
     image: postgres:15
     environment:
-      POSTGRES_DB: smartsoft
-      POSTGRES_USER: smartsoft
-      POSTGRES_PASSWORD: smartsoft
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
-  app:
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./database:/docker-entrypoint-initdb.d:ro
+
+  wildfly:
     build: .
-    environment:
-      SMARTSOFT_DB_URL: jdbc:postgresql://db:5432/smartsoft
-      SMARTSOFT_DB_USERNAME: smartsoft
-      SMARTSOFT_DB_PASSWORD: smartsoft
     depends_on:
-      - db
+      - postgres
     ports:
       - "8080:8080"
+      - "9990:9990"
+
+volumes:
+  postgres-data:

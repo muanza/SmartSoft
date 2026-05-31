@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>POS</title>
+    <h:outputStylesheet library="css" name="pos.css"/>
+    <h:outputScript library="js" name="pos.js"/>
+</h:head>
+<h:body styleClass="#{posController.bloqueado ? 'locked' : ''}">
+<header><h1>POS e Faturação</h1></header>
+<nav>
+    <h:link outcome="pos" value="POS" />
+    <h:link outcome="vendas" value="Vendas" />
+    <h:link outcome="produtos" value="Produtos" />
+    <h:link outcome="stock" value="Stock" />
+    <h:link outcome="clientes" value="Clientes" />
+    <h:link outcome="utilizadores" value="Utilizadores" />
+    <h:link outcome="facturas" value="Facturas" />
+    <h:link outcome="configuracao" value="Configuração" />
+</nav>
+
+<section class="panel">
+    <h2>Facturas emitidas</h2>
+    <h:dataTable value="#{facturaController.facturas}" var="factura">
+        <h:column><f:facet name="header">Número</f:facet>#{factura.numero}</h:column>
+        <h:column><f:facet name="header">Cliente</f:facet>#{factura.clienteNome}</h:column>
+        <h:column><f:facet name="header">Idioma</f:facet>#{factura.idioma}</h:column>
+        <h:column><f:facet name="header">Total</f:facet>#{factura.total}</h:column>
+    </h:dataTable>
+</section>
+
+</h:body>
+</html>

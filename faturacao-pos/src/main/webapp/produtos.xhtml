@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>POS</title>
+    <h:outputStylesheet library="css" name="pos.css"/>
+    <h:outputScript library="js" name="pos.js"/>
+</h:head>
+<h:body styleClass="#{posController.bloqueado ? 'locked' : ''}">
+<header><h1>POS e Faturação</h1></header>
+<nav>
+    <h:link outcome="pos" value="POS" />
+    <h:link outcome="vendas" value="Vendas" />
+    <h:link outcome="produtos" value="Produtos" />
+    <h:link outcome="stock" value="Stock" />
+    <h:link outcome="clientes" value="Clientes" />
+    <h:link outcome="utilizadores" value="Utilizadores" />
+    <h:link outcome="facturas" value="Facturas" />
+    <h:link outcome="configuracao" value="Configuração" />
+</nav>
+
+<section class="panel">
+    <h2>Produtos</h2>
+    <h:dataTable value="#{produtoController.produtos}" var="produto">
+        <h:column><f:facet name="header">Código</f:facet>#{produto.codigo}</h:column>
+        <h:column><f:facet name="header">Nome</f:facet>#{produto.nome}</h:column>
+        <h:column><f:facet name="header">Preço</f:facet>#{produto.precoVenda}</h:column>
+        <h:column><f:facet name="header">Stock</f:facet>#{produto.stockAtual}</h:column>
+    </h:dataTable>
+</section>
+<section class="panel">
+    <h:form>
+        <h:inputText value="#{produtoController.produtoForm.codigo}" required="true"/>
+        <h:inputText value="#{produtoController.produtoForm.nome}" required="true"/>
+        <h:inputTextarea value="#{produtoController.produtoForm.descricao}"/>
+        <h:inputText value="#{produtoController.produtoForm.precoVenda}"/>
+        <h:inputText value="#{produtoController.produtoForm.stockAtual}"/>
+        <h:commandButton value="Guardar produto" action="#{produtoController.salvar}"/>
+    </h:form>
+</section>
+
+</h:body>
+</html>

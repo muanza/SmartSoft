@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+    <title>CRM</title>
+    <h:outputStylesheet library="css" name="style.css"/>
+</h:head>
+<h:body>
+<header><h1>CRM de Licenciamento</h1></header>
+<nav>
+    <h:link outcome="dashboard" value="Dashboard" />
+    <h:link outcome="tenants" value="Tenants" />
+    <h:link outcome="licencas" value="Licenças" />
+    <h:link outcome="parceiros" value="Parceiros" />
+    <h:link outcome="banners" value="Banners" />
+    <h:link outcome="comunicados" value="Comunicados" />
+    <h:link outcome="maquinas" value="Máquinas" />
+</nav>
+
+<section class="card">
+    <h2>Parceiros</h2>
+    <h:dataTable value="#{parceiroController.parceiros}" var="parceiro">
+        <h:column><f:facet name="header">Código</f:facet>#{parceiro.codigo}</h:column>
+        <h:column><f:facet name="header">Nome</f:facet>#{parceiro.nome}</h:column>
+        <h:column><f:facet name="header">Estado</f:facet>#{parceiro.estado}</h:column>
+    </h:dataTable>
+</section>
+<section class="card">
+    <h:form>
+        <h:inputText value="#{parceiroController.parceiroForm.codigo}" required="true"/>
+        <h:inputText value="#{parceiroController.parceiroForm.nome}" required="true"/>
+        <h:inputText value="#{parceiroController.parceiroForm.email}" required="true"/>
+        <h:commandButton value="Guardar parceiro" action="#{parceiroController.salvar}"/>
+    </h:form>
+</section>
+
+</h:body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>POS</title>
+    <h:outputStylesheet library="css" name="pos.css"/>
+    <h:outputScript library="js" name="pos.js"/>
+</h:head>
+<h:body styleClass="#{posController.bloqueado ? 'locked' : ''}">
+<header><h1>POS e Faturação</h1></header>
+<nav>
+    <h:link outcome="pos" value="POS" />
+    <h:link outcome="vendas" value="Vendas" />
+    <h:link outcome="produtos" value="Produtos" />
+    <h:link outcome="stock" value="Stock" />
+    <h:link outcome="clientes" value="Clientes" />
+    <h:link outcome="utilizadores" value="Utilizadores" />
+    <h:link outcome="facturas" value="Facturas" />
+    <h:link outcome="configuracao" value="Configuração" />
+</nav>
+
+<section class="panel">
+    <h2>Clientes</h2>
+    <h:dataTable value="#{clienteController.clientes}" var="cliente">
+        <h:column><f:facet name="header">NIF</f:facet>#{cliente.nif}</h:column>
+        <h:column><f:facet name="header">Nome</f:facet>#{cliente.nome}</h:column>
+        <h:column><f:facet name="header">Idioma</f:facet>#{cliente.idiomaPreferido}</h:column>
+    </h:dataTable>
+</section>
+<section class="panel">
+    <h:form>
+        <h:inputText value="#{clienteController.clienteForm.nif}"/>
+        <h:inputText value="#{clienteController.clienteForm.nome}" required="true"/>
+        <h:inputText value="#{clienteController.clienteForm.email}"/>
+        <h:selectOneMenu value="#{clienteController.clienteForm.idiomaPreferido}">
+            <f:selectItem itemValue="pt" itemLabel="Português"/>
+            <f:selectItem itemValue="en" itemLabel="English"/>
+            <f:selectItem itemValue="fr" itemLabel="Français"/>
+            <f:selectItem itemValue="zh" itemLabel="中文"/>
+        </h:selectOneMenu>
+        <h:commandButton value="Guardar cliente" action="#{clienteController.salvar}"/>
+    </h:form>
+</section>
+
+</h:body>
+</html>

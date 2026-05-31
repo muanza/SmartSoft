@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+    <title>CRM</title>
+    <h:outputStylesheet library="css" name="style.css"/>
+</h:head>
+<h:body>
+<header><h1>CRM de Licenciamento</h1></header>
+<nav>
+    <h:link outcome="dashboard" value="Dashboard" />
+    <h:link outcome="tenants" value="Tenants" />
+    <h:link outcome="licencas" value="Licenças" />
+    <h:link outcome="parceiros" value="Parceiros" />
+    <h:link outcome="banners" value="Banners" />
+    <h:link outcome="comunicados" value="Comunicados" />
+    <h:link outcome="maquinas" value="Máquinas" />
+</nav>
+
+<section class="card">
+    <h2>Tenants</h2>
+    <h:form>
+        <h:dataTable value="#{tenantController.tenants}" var="tenant">
+            <h:column><f:facet name="header">NIF</f:facet>#{tenant.nif}</h:column>
+            <h:column><f:facet name="header">Empresa</f:facet>#{tenant.nomeEmpresa}</h:column>
+            <h:column><f:facet name="header">Base</f:facet>#{tenant.nomeBaseDados}</h:column>
+        </h:dataTable>
+    </h:form>
+</section>
+<section class="card">
+    <h2>Novo tenant</h2>
+    <h:form>
+        <h:inputText value="#{tenantController.tenantForm.nif}" required="true"/>
+        <h:inputText value="#{tenantController.tenantForm.nomeEmpresa}" required="true"/>
+        <h:inputText value="#{tenantController.tenantForm.emailEmpresa}" required="true"/>
+        <h:inputText value="#{tenantController.tenantForm.nomeBaseDados}" required="true"/>
+        <h:commandButton value="Guardar" action="#{tenantController.salvar}"/>
+    </h:form>
+</section>
+
+</h:body>
+</html>

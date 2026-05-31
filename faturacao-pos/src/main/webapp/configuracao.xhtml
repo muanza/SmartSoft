@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>POS</title>
+    <h:outputStylesheet library="css" name="pos.css"/>
+    <h:outputScript library="js" name="pos.js"/>
+</h:head>
+<h:body styleClass="#{posController.bloqueado ? 'locked' : ''}">
+<header><h1>POS e Faturação</h1></header>
+<nav>
+    <h:link outcome="pos" value="POS" />
+    <h:link outcome="vendas" value="Vendas" />
+    <h:link outcome="produtos" value="Produtos" />
+    <h:link outcome="stock" value="Stock" />
+    <h:link outcome="clientes" value="Clientes" />
+    <h:link outcome="utilizadores" value="Utilizadores" />
+    <h:link outcome="facturas" value="Facturas" />
+    <h:link outcome="configuracao" value="Configuração" />
+</nav>
+
+<section class="panel">
+    <h2>Configuração</h2>
+    <h:form>
+        <h:outputLabel value="CRM API URL"/>
+        <h:inputText value="#{configController.crmApiUrl}"/>
+        <h:outputLabel value="API Key"/>
+        <h:inputText value="#{configController.apiKey}"/>
+        <h:outputLabel value="Tenant NIF"/>
+        <h:inputText value="#{configController.tenantNif}"/>
+        <h:outputLabel value="Pasta backup"/>
+        <h:inputText value="#{configController.pastaBackup}"/>
+    </h:form>
+    <p>Último plano backup: #{configController.ultimoPlanoBackup}</p>
+</section>
+
+</h:body>
+</html>
